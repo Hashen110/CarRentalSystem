@@ -1,0 +1,37 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.2em !important;
+}
+
+.section-1 {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/header-bg.jpg");
+}
+
+.header-after {
+    height: calc(100vh - 70px);
+    position: relative;
+}
+
+.header-after > div{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.header-after .header-box {
+    background-color: rgba(32, 46, 69, 0.4);
+    border: 1px solid #4b5263;
+}
+
+.service-row > div > div:hover {
+    cursor: pointer;
+    box-shadow: -14.142px 14.142px 20px 0 rgba(157, 157, 157, 0.5);
+}
+
+.service-row > div > div:hover .hover-yellow {
+    color: #ffc107;
+}

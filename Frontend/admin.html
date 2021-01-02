@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Easy Car Rental</title>
+    <link href="assets/lib/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/lib/fontawesome-free-5.15.1-web/css/all.min.css" rel="stylesheet">
+    <link href="assets/plugin/tablesorter-master/dist/css/theme.bootstrap_4.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-around"
+         style="background: black !important;">
+        <a class="navbar-brand" href="index.html">
+            <img alt="Easy Car Logo" src="assets/img/logo.png">
+        </a>
+        <div class="">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="cars.html">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link px-3 text-warning border" href="admin.html">Admin</a>
+                </li>
+                <li class="nav-item" id="navSignOut">
+                    <a class="nav-link px-3 text-danger" href="#" onclick="signOut()">Sign Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<section class="container-fluid my-5">
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a aria-controls="dashboard" class="list-group-item list-group-item-action active" data-toggle="list"
+                   href="#list-dashboard" id="list-dashboard-list" role="tab">Dashboard</a>
+                <a aria-controls="cars" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-cars" id="list-cars-list" role="tab">Cars</a>
+                <a aria-controls="drivers" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-drivers" id="list-drivers-list" role="tab">Drivers</a>
+                <a aria-controls="bookings" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-bookings" id="list-bookings-list" role="tab">Bookings</a>
+                <a aria-controls="users" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-users" id="list-users-list" role="tab">Users</a>
+            </div>
+        </div>
+        <div class="col border mr-3">
+            <div class="tab-content" id="nav-tabContent">
+                <div aria-labelledby="list-dashboard-list" class="tab-pane fade show py-5 active" id="list-dashboard"
+                     role="tabpanel">
+                    <div class="row">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-primary" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardRegisteredUsers">0</p>
+                                <p class="pb-5 text-center h6">Registered Users</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-secondary" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardTotalBookings">0</p>
+                                <p class="pb-5 text-center h6">Total Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-success" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardAvailableCars">0</p>
+                                <p class="pb-5 text-center h6">Available Cars</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-danger" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardActiveBookings">0</p>
+                                <p class="pb-5 text-center h6">Active Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-warning" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardAvailableDrivers">0</p>
+                                <p class="pb-5 text-center h6">Available Drivers</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="m-1 bg-info" style="border-radius: 10%">
+                                <p class="pt-5 text-center font-weight-bold h1" id="dashboardTotalCars">0</p>
+                                <p class="pb-5 text-center h6">Total Cars</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-5">
+                    <div class="row mx-5 mt-5">
+                        <div class="col-12 col-sm-6 border border-dark">
+                            <p class="mt-3 text-center"><span class="fa fa-car-crash"></span>&nbsp;Cars need to
+                                maintenance&nbsp;&nbsp;&nbsp;<span class="badge badge-warning"
+                                                                   id="dashboardCarsNeedMaintenance">0</span></p>
+                        </div>
+                        <div class="col-12 col-sm-6 border border-dark">
+                            <p class="mt-3 text-center"><span class="fa fa-car"></span>&nbsp;Cars under maintenance&nbsp;&nbsp;&nbsp;<span
+                                    class="badge badge-info" id="dashboardCarsUnderMaintenance">10</span></p>
+                        </div>
+                    </div>
+                    <hr class="mt-5">
+                    <div class="row text-white bg-dark m-5 text-center">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="m-1">
+                                <p class="h4 pt-5 font-weight-bold">Rs <span id="dashboardDailyIncome">0</span>/=</p>
+                                <p class="pb-5">Daily Income</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="m-1">
+                                <p class="h4 pt-5 font-weight-bold">Rs <span id="dashboardWeeklyIncome">0</span>/=</p>
+                                <p class="pb-5">Weekly Income</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="m-1">
+                                <p class="h4 pt-5 font-weight-bold">Rs <span id="dashboardMonthlyIncome">0</span>/=</p>
+                                <p class="pb-5">Monthly Income</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="m-1">
+                                <p class="h4 pt-5 font-weight-bold">Rs <span id="dashboardYearlyIncome">0</span>/=</p>
+                                <p class="pb-5">Yearly Income</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <hr class="mt-5">-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col">-->
+                    <!--                            <a href="#"><button class="btn btn-outline-info">Add Car</button></a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col">-->
+                    <!--                            <a href="#"><button class="btn btn-outline-warning">Add User</button></a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col">-->
+                    <!--                            <a href="#"><button class="btn btn-outline-danger">Add Driver</button></a>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+                <div aria-labelledby="list-cars-list" class="tab-pane fade show py-5" id="list-cars" role="tabpanel">
+                    <div class="row text-center">
+                        <div class="col-6 col-sm-3">
+                            <div class="btn btn-outline-danger py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="carTotalCars">0</p>
+                                <p class="text-center h6">Total Cars</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="btn btn-outline-danger py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="carGeneralCars">0</p>
+                                <p class="text-center h6">Total General Cars</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="btn btn-outline-danger py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="carPremiumCars">0</p>
+                                <p class="text-center h6">Total Premium Cars</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="btn btn-outline-danger py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="carLuxuryCars">0</p>
+                                <p class="text-center h6">Total Luxury Cars</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row text-center px-5">
+                        <div class="col border border-dark">
+                            <p class="mt-3"><span class="font-weight-bold" id="carNeedRepairCars">0</span> - cars need
+                                to repair</p>
+                        </div>
+                        <div class="col border border-dark">
+                            <p class="mt-3"><span class="font-weight-bold" id="carRepairingCars">0</span> - cars under
+                                maintenance</p>
+                        </div>
+                        <div class="col align-items-center">
+                            <a data-toggle="modal" href="#addCarModal">
+                                <button class="btn btn-primary" style="height: 100%">Add Car</button>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <table class="table table-hover text-center table-striped tablesorter" id="carTable">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Passengers</th>
+                                <th scope="col">Transmission</th>
+                                <th scope="col">Fuel</th>
+                                <th scope="col">Daily Rate</th>
+                                <th scope="col">Monthly Rate</th>
+                                <th scope="col">Price Extra KM</th>
+                                <th scope="col">Reg No</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Free Mileage</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="carTableBody">
+                            </tbody>
+                        </table>
+                        <small class="text-muted font-italic">click table header to sort</small>
+                    </div>
+                </div>
+                <div aria-labelledby="list-drivers-list" class="tab-pane fade show py-5" id="list-drivers"
+                     role="tabpanel">
+                    <div class="row text-center">
+                        <div class="col">
+                            <div class="btn btn-outline-primary py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="driversTotalDrivers">0</p>
+                                <p class="text-center h6">Total Drivers</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-primary py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="driversAvailableDrivers">0</p>
+                                <p class="text-center h6">Total Available Drivers</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-primary py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="driversWorkingDrivers">0</p>
+                                <p class="text-center h6">Total Working Drivers</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <a href="#">
+                                <button class="btn btn-warning" data-target="#addDriverModal" data-toggle="modal"
+                                        style="height: 100%; width: 50%"><span class="h5">Add Driver</span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <table class="table table-hover text-center table-striped tablesorter" id="driverTable">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">NIC Number</th>
+                                <th scope="col">Driving License</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="driversTableBody">
+                            </tbody>
+                        </table>
+                        <small class="text-muted font-italic">click table header to sort</small>
+                    </div>
+                </div>
+                <div aria-labelledby="list-bookings-list" class="tab-pane fade show py-5" id="list-bookings"
+                     role="tabpanel">
+                    <div class="row text-center">
+                        <div class="col">
+                            <div class="btn btn-outline-success py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="bookingTotalBookings">0</p>
+                                <p class="text-center h6">Total Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-info py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="bookingTodayBookings">0</p>
+                                <p class="text-center h6">Total Today Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-success py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="bookingYesterdayBookings">0</p>
+                                <p class="text-center h6">Total Yesterday Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-info py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="bookingWeekBookings">0</p>
+                                <p class="text-center h6">Total Week Bookings</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-success py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="bookingMonthBookings">0</p>
+                                <p class="text-center h6">Total Month Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <p class="h5 py-3"><span class="fas fa-book"></span>&nbsp;&nbsp;&nbsp;<span
+                                id="bookingBookingRequests">0</span> new booking requests&nbsp;&nbsp;&nbsp;<a
+                                data-toggle="modal" href="#bookingRequestModal"><span
+                                class="badge badge-warning">view</span></a></p>
+                        <a class="btn btn-secondary mb-2 btn-sm" href="#addBookingModal" data-toggle="modal">Add New Booking</a>
+                    </div>
+                    <hr>
+                    <table class="table table-hover text-center table-striped tablesorter" id="bookingTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Car</th>
+                            <th scope="col">Driver</th>
+                            <th scope="col">Pickup</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Time In</th>
+                            <th scope="col">Time Out</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="bookingTableBody">
+                        </tbody>
+                    </table>
+                    <small class="text-muted font-italic">click table header to sort</small>
+                </div>
+                <div aria-labelledby="list-users-list" class="tab-pane fade show py-5" id="list-users" role="tabpanel">
+                    <div class="row text-center">
+                        <div class="col">
+                            <div class="btn btn-outline-warning py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="usersTotalUsers">0</p>
+                                <p class="text-center h6">Total Users</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-warning py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="usersTotalPendingUsers">0</p>
+                                <p class="text-center h6">Total Pending Users</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn btn-outline-warning py-3" style="width: 75%">
+                                <p class="text-center font-weight-bold h2" id="usersTotalAdminUsers">0</p>
+                                <p class="text-center h6">Total Admin Users</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="#addUserModal">Add User</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="my-3 text-right">
+                            <div class="form-check form-check-inline">
+                                <input checked class="form-check-input" id="sortUser" name="userStatus"
+                                       onchange="sortUsers(this)" type="radio" value="users">
+                                <label class="form-check-label" for="sortUser">Users</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="sortUserRequest" name="userStatus"
+                                       onchange="sortUserRequests(this)"
+                                       type="radio" value="userRequests">
+                                <label class="form-check-label" for="sortUserRequest">User Requests</label>
+                            </div>
+                        </div>
+                        <table class="table table-hover text-center table-striped" id="userTable">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">NIC Number</th>
+                                <th scope="col">Driving License</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div aria-hidden="true" aria-labelledby="addCarModalTitle" class="modal fade" id="addCarModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCarModalTitle">Add Car</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarBrand">Brand</label>
+                                <input class="form-control rounded-0" id="addCarBrand" placeholder="Brand" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarType">Type</label>
+                                <input class="form-control rounded-0" id="addCarType" placeholder="Type" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarPassengers">Passengers</label>
+                                <input class="form-control rounded-0" id="addCarPassengers" placeholder="Passengers"
+                                       required type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarTransmission">Transmission</label>
+                                <input class="form-control rounded-0" id="addCarTransmission" placeholder="Transmission"
+                                       required type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarFuel">Fuel</label>
+                                <input class="form-control rounded-0" id="addCarFuel" placeholder="Fuel" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarDailyRate">DailyRate</label>
+                                <input class="form-control rounded-0" id="addCarDailyRate" placeholder="DailyRate"
+                                       required type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarMonthlyRate">MonthlyRate</label>
+                                <input class="form-control rounded-0" id="addCarMonthlyRate" placeholder="MonthlyRate"
+                                       required type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarFreeMileage">FreeMileage</label>
+                                <input class="form-control rounded-0" id="addCarFreeMileage" placeholder="FreeMileage"
+                                       required type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarPriceExtraKm">PriceExtraKm</label>
+                                <input class="form-control rounded-0" id="addCarPriceExtraKm" placeholder="PriceExtraKm"
+                                       required type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarRegNo">RegNo</label>
+                                <input class="form-control rounded-0" id="addCarRegNo" placeholder="RegNo" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarColor">Color</label>
+                                <input class="form-control rounded-0" id="addCarColor" placeholder="Color" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarFrontImage">Front Image</label>
+                                <input class="form-control rounded-0" id="addCarFrontImage" required type="file">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarBackImage">Back Image</label>
+                                <input class="form-control rounded-0" id="addCarBackImage" required type="file">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarSlideImage">Slide Image</label>
+                                <input class="form-control rounded-0" id="addCarSlideImage" required type="file">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarInteriorImage">Interior Image</label>
+                                <input class="form-control rounded-0" id="addCarInteriorImage" required type="file">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="addCarLossDamage">Loss Damage</label>
+                                <input class="form-control rounded-0" id="addCarLossDamage" placeholder="Loss Damage"
+                                       required
+                                       type="number">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-warning" onclick="addNewCar()" type="button">Add Car</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="addUserModalTitle" class="modal fade" id="addUserModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalTitle">Add User</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="registerForm">
+                    <div class="alert alert-danger" id="registerAlert" style="display: none;"></div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerUsername">Username</label>
+                                <input aria-describedby="registerUsernameHelp" class="form-control rounded-0"
+                                       id="registerUsername" placeholder="Username"
+                                       required type="text">
+                                <small class="form-text text-danger" id="registerUsernameHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerEmail">Email</label>
+                                <input aria-describedby="registerEmailHelp" class="form-control rounded-0"
+                                       id="registerEmail"
+                                       placeholder="Email" required
+                                       type="email">
+                                <small class="form-text text-danger" id="registerEmailHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerContact">Contact</label>
+                                <input aria-describedby="registerContactHelp" class="form-control rounded-0"
+                                       id="registerContact" placeholder="Contact" required
+                                       type="number">
+                                <small class="form-text text-danger" id="registerContactHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerAddress">Address</label>
+                                <input aria-describedby="registerAddressHelp" class="form-control rounded-0"
+                                       id="registerAddress" placeholder="Address" required
+                                       type="text">
+                                <small class="form-text text-danger" id="registerAddressHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerNicNumber">NIC Number</label>
+                                <input aria-describedby="registerNicNumberHelp" class="form-control rounded-0"
+                                       id="registerNicNumber" placeholder="NIC Number" required
+                                       type="text">
+                                <small class="form-text text-danger" id="registerNicNumberHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerNicPhoto">NIC Photo</label>
+                                <input accept="image/jpeg,image/png" aria-describedby="registerNicPhotoHelp"
+                                       class="form-control rounded-0" id="registerNicPhoto" required type="file">
+                                <small class="form-text text-danger" id="registerNicPhotoHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerDrivingLicenseNumber">Driving License Number</label>
+                                <input aria-describedby="registerDrivingLicenseNumberHelp"
+                                       class="form-control rounded-0"
+                                       id="registerDrivingLicenseNumber"
+                                       placeholder="Driving License Number" required
+                                       type="text">
+                                <small class="form-text text-danger" id="registerDrivingLicenseNumberHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerDrivingLicensePhoto">Driving License Photo</label>
+                                <input accept="image/jpeg,image/png" aria-describedby="registerDrivingLicensePhotoHelp"
+                                       class="form-control rounded-0" id="registerDrivingLicensePhoto" required
+                                       type="file">
+                                <small class="form-text text-danger" id="registerDrivingLicensePhotoHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerPassword">Password</label>
+                                <input aria-describedby="registerPasswordHelp" class="form-control rounded-0"
+                                       id="registerPassword" placeholder="Password" required
+                                       type="password">
+                                <small class="form-text text-danger" id="registerPasswordHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerConfirmPassword">Confirm Password</label>
+                                <input aria-describedby="registerConfirmPasswordHelp" class="form-control rounded-0"
+                                       id="registerConfirmPassword"
+                                       placeholder="Confirm Password" required
+                                       type="password">
+                                <small class="form-text text-danger" id="registerConfirmPasswordHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="registerStatus">Status</label>
+                                <select class="form-control rounded-0" id="registerStatus" name="registerStatus">
+                                    <option selected value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-6">
+                            <div class="form-check">
+                                <input checked class="form-check-input" id="registerIsAdmin" type="checkbox">
+                                <label class="form-check-label" for="registerIsAdmin">Is Admin</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-warning" onclick="registerUser()" type="button">Register User</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="addDriverModalTitle" class="modal fade" id="addDriverModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDriverModalTitle">Add Driver</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="addDriverForm">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverUsername">Username</label>
+                                <input aria-describedby="addDriverUsernameHelp" class="form-control rounded-0"
+                                       id="addDriverUsername" placeholder="Username"
+                                       required type="text">
+                                <small class="form-text text-danger" id="addDriverUsernameHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverEmail">Email</label>
+                                <input aria-describedby="addDriverEmailHelp" class="form-control rounded-0"
+                                       id="addDriverEmail"
+                                       placeholder="Email" required
+                                       type="email">
+                                <small class="form-text text-danger" id="addDriverEmailHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverContact">Contact</label>
+                                <input aria-describedby="addDriverContactHelp" class="form-control rounded-0"
+                                       id="addDriverContact" placeholder="Contact" required
+                                       type="number">
+                                <small class="form-text text-danger" id="addDriverContactHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverNicNumber">NIC Number</label>
+                                <input aria-describedby="addDriverNicNumberHelp" class="form-control rounded-0"
+                                       id="addDriverNicNumber" placeholder="NIC Number" required
+                                       type="text">
+                                <small class="form-text text-danger" id="addDriverNicNumberHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverDrivingLicenseNumber">Driving License Number</label>
+                                <input aria-describedby="addDriverDrivingLicenseNumberHelp"
+                                       class="form-control rounded-0"
+                                       id="addDriverDrivingLicenseNumber"
+                                       placeholder="Driving License Number" required
+                                       type="text">
+                                <small class="form-text text-danger" id="addDriverDrivingLicenseNumberHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverPassword">Password</label>
+                                <input aria-describedby="addDriverPasswordHelp" class="form-control rounded-0"
+                                       id="addDriverPassword" placeholder="Password" required
+                                       type="password">
+                                <small class="form-text text-danger" id="addDriverPasswordHelp"></small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="addDriverConfirmPassword">Confirm Password</label>
+                                <input aria-describedby="addDriverConfirmPasswordHelp" class="form-control rounded-0"
+                                       id="addDriverConfirmPassword"
+                                       placeholder="Confirm Password" required
+                                       type="password">
+                                <small class="form-text text-danger" id="addDriverConfirmPasswordHelp"></small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-warning" onclick="addDriver()" type="button">Add Driver</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="userModalTitle" class="modal fade" id="userModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalTitle">User</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Username</span> - <span id="userModalUsername"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Email</span> - <span id="userModalEmail"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Contact</span> - <span id="userModalContact"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Address</span> - <span id="userModalAddress"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">NIC Number</span> - <span id="userModalNicNumber"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Driving Number</span> - <span id="userModalDrivingNumber"></span>
+                        </p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Is Admin</span> - <span id="userModalIsAdmin"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Is Driver</span> - <span id="userModalIsDriver"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Status</span> - <span id="userModalStatus"></span></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p><span class="text-black-50">Message</span> - <span id="userModalMessage"></span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <img alt="" id="userModalNicPhoto" src="assets/img/cars/bmw/bmw-i8-front.jpg"
+                             style="width: 100%; height: 100%;">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img alt="" id="userModalDrivingPhoto" src="assets/img/cars/bmw/bmw-i8-back.jpg"
+                             style="width: 100%; height: 100%;">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div id="userBottom">
+                <button class="btn btn-sm btn-info px-5 mb-5" id="userModalBtnApproved"
+                        onclick="approvedUser()" style="width: 100%;">Approved
+                </button>
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control rounded-0 form-control-sm" id="userModalRejectMessage"
+                               placeholder="Message" type="text">
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-sm btn-danger px-5" id="userModalBtnReject"
+                                onclick="rejectUser()" style="width: 100%;">Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="bookingRequestModalTitle" class="modal fade" id="bookingRequestModal"
+     role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingRequestModalTitle">Booking Requests</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="pendingBookingRow">
+<!--                    <div class="col-12 border"><div class="d-flex justify-content-between mt-3"><div><p>Hashen Abeysekara booked BMW i8 from Panadura to Colombo</p></div><div><a class="badge badge-success" href="#"><span class="fas fa-check"></span>&nbsp;Approve</a><a class="badge badge-danger" href="#"><span class="fas fa-times"></span>&nbsp;Decline</a></div></div></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="addBookingModalTitle" class="modal fade" id="addBookingModal"
+     role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBookingModalTitle">Add Booking</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingCar">Car</label>
+                                <select class="form-control rounded-0" id="addBookingCar">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingUser">User</label>
+                                <select class="form-control rounded-0" id="addBookingUser">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingPickupLocation">Pickup Location</label>
+                                <input type="text" class="form-control rounded-0" id="addBookingPickupLocation" placeholder="Pickup Location">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingPickupTime">Pickup Time</label>
+                                <input type="datetime-local" class="form-control rounded-0" id="addBookingPickupTime" placeholder="Pickup Time">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingDestination">Destination</label>
+                                <input type="text" class="form-control rounded-0" id="addBookingDestination" placeholder="Destination">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingDestinationTime">Destination Time</label>
+                                <input type="datetime-local" class="form-control rounded-0" id="addBookingDestinationTime" placeholder="Destination Time">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="addBookingPassengers">Passengers</label>
+                                <input type="number" class="form-control rounded-0" id="addBookingPassengers" placeholder="Passengers">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+<!--                            <div class="form-group">-->
+<!--                                <label for="addBookingDriver">Driver</label>-->
+<!--                                <select class="form-control rounded-0" id="addBookingDriver">-->
+<!--                                </select>-->
+<!--                            </div>-->
+                            <div class="form-check">
+                                <input class="form-check-input" id="addBookingDriver" type="checkbox">
+                                <label class="form-check-label" for="addBookingDriver">Need a Driver?</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" onclick="addBooking()" >Add Booking</button>
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/lib/jquery-3.5.1.min.js"></script>
+<script src="assets/lib/popper.min.js"></script>
+<script src="assets/lib/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+<script src="assets/plugin/tablesorter-master/dist/js/jquery.tablesorter.min.js"></script>
+<script src="assets/plugin/tablesorter-master/dist/js/jquery.tablesorter.widgets.min.js"></script>
+<script>
+    // let loginUserId = '';
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/login/user',
+        method: 'get',
+        success: function (response) {
+            if (response.data == null) {
+                window.location.href = 'index.html';
+            } else if (!response.data.admin) {
+                // window.location.href = 'index.html';
+            }
+            if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                alert(response.message + ' - ' + response.data);
+                window.location.href = 'index.html';
+            }
+            if (response.code === 200 && response.data != null) {
+                // loginUserId = response.data.id;
+            }
+        }
+    });
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/admin/dashboard',
+        method: 'get',
+        success: function (response) {
+            if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                alert(response.message + ' - ' + response.data);
+                window.location.href = 'index.html';
+            }
+            if (response.code === 200) {
+                $('#list-dashboard #dashboardRegisteredUsers').text(response.data.registeredUsers);
+                $('#list-dashboard #dashboardTotalBookings').text(response.data.totalBookings);
+                $('#list-dashboard #dashboardAvailableCars').text(response.data.availableCars);
+                $('#list-dashboard #dashboardActiveBookings').text(response.data.activeBookings);
+                $('#list-dashboard #dashboardAvailableDrivers').text(response.data.availableDrivers);
+                $('#list-dashboard #dashboardTotalCars').text(response.data.totalCars);
+                $('#list-dashboard #dashboardCarsNeedMaintenance').text(response.data.carsNeedMaintenance);
+                $('#list-dashboard #dashboardCarsUnderMaintenance').text(response.data.carsUnderMaintenance);
+                $('#list-dashboard #dashboardDailyIncome').text(response.data.dailyIncome);
+                $('#list-dashboard #dashboardWeeklyIncome').text(response.data.weeklyIncome);
+                $('#list-dashboard #dashboardMonthlyIncome').text(response.data.monthlyIncome);
+                $('#list-dashboard #dashboardYearlyIncome').text(response.data.yearlyIncome);
+            }
+        }
+    });
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/admin/car',
+        method: 'get',
+        success: function (resp) {
+            if (resp.code === 401 || resp.code === 403 || String(resp.data).includes('Forbidden') || String(resp.data).includes('Unauthorized')) {
+                window.location.href = 'index.html';
+            }
+            if (resp.code === 200) {
+                $('#list-cars #carTotalCars').text(resp.data.totalCars);
+                $('#list-cars #carGeneralCars').text(resp.data.generalCars);
+                $('#list-cars #carPremiumCars').text(resp.data.premiumCars);
+                $('#list-cars #carLuxuryCars').text(resp.data.luxuryCars);
+                $('#list-cars #carNeedRepairCars').text(resp.data.carsNeedMaintenance);
+                $('#list-cars #carRepairingCars').text(resp.data.carsUnderMaintenance);
+                if (resp.data.cars != null) {
+                    for (let i = 0; i < resp.data.cars.length; i++) {
+                        $('#addBookingModal #addBookingCar').append(`<option value="${resp.data.cars[i].id}">${resp.data.cars[i].brand}</option>`);
+                        $('#list-cars #carTableBody').append(`<tr><th scope="row">${i + 1}</th><td>${resp.data.cars[i].brand}</td><td>${resp.data.cars[i].type}</td><td>${resp.data.cars[i].passengers}</td><td>${resp.data.cars[i].transmission}</td><td>${resp.data.cars[i].fuel}</td><td>${resp.data.cars[i].dailyRate}/=</td><td>${resp.data.cars[i].monthlyRate}/=</td><td>${resp.data.cars[i].priceExtraKm}/=</td><td>${resp.data.cars[i].registrationNumber}</td><td>${resp.data.cars[i].color}</td><td>${resp.data.cars[i].freeMileage}</td><td><span class="badge ${resp.data.cars[i].status === 'Not Available' ? 'badge-warning' : resp.data.cars[i].status === 'Available' ? 'badge-success' : 'badge-danger'}">${resp.data.cars[i].status}</span></td></tr>`);
+                    }
+                }
+                $("#carTable").tablesorter();
+            }
+        }
+    });
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/admin/driver',
+        method: 'get',
+        success: function (resp) {
+            if (resp.code === 401 || resp.code === 403 || String(resp.data).includes('Forbidden') || String(resp.data).includes('Unauthorized')) {
+                window.location.href = 'index.html';
+            }
+            if (resp.code === 200) {
+                $('#list-drivers #driversTotalDrivers').text(resp.data.totalDrivers);
+                $('#list-drivers #driversAvailableDrivers').text(resp.data.availableDrivers);
+                $('#list-drivers #driversWorkingDrivers').text(resp.data.workingDrivers);
+                if (resp.data.drivers != null) {
+                    for (let i = 0; i < resp.data.drivers.length; i++) {
+                        // $('#addBookingModal #addBookingDriver').append(`<option value="${resp.data.drivers[i].id}">${resp.data.drivers[i].username}</option>`);
+                        $('#driversTableBody').append(`<tr id="${resp.data.drivers[i].id}"><th scope="row">${i + 1}</th><td>${resp.data.drivers[i].username}</td><td>${resp.data.drivers[i].email}</td><td>${resp.data.drivers[i].nicNumber}</td><td>${resp.data.drivers[i].drivingLicenseNumber}</td><td>${resp.data.drivers[i].contact}</td><td><span class="badge ${resp.data.drivers[i].status === 'available' ? 'badge-success' : resp.data.drivers[i].status === 'Available' ? 'badge-success' : 'badge-info'} driverStatus">${resp.data.drivers[i].status}</span></td><td><button class="btn btn-outline-danger ${resp.data.drivers[i].status === 'available' ? '' : resp.data.drivers[i].status === 'Available' ? '' : 'disabled'}" onclick="deleteDriver(this)">Delete</button></td></tr>`);
+                    }
+                }
+                $("#driverTable").tablesorter();
+            }
+        }
+    });
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/admin/booking',
+        method: 'get',
+        success: function (response) {
+            if (response.code === 200) {
+                $('#list-bookings #bookingTotalBookings').text(response.data.totalBookings);
+                $('#list-bookings #bookingTodayBookings').text(response.data.todayBookings);
+                $('#list-bookings #bookingYesterdayBookings').text(response.data.yesterdayBookings);
+                $('#list-bookings #bookingWeekBookings').text(response.data.weekBookings);
+                $('#list-bookings #bookingMonthBookings').text(response.data.monthBookings);
+                $('#list-bookings #bookingBookingRequests').text(response.data.bookingRequests);
+                if (response.data.bookings != null){
+                    for (let i = 0; i < response.data.pendingBookings.length; i++) {
+                        $('#pendingBookingRow').append(`<div class="col-12 border"><div class="d-flex justify-content-between mt-3"><div><p><span class="font-weight-bold">#${i+1}</span>&nbsp;-&nbsp;${response.data.pendingBookings[i].userId} <span class="text-muted">booked</span> ${response.data.pendingBookings[i].cars[0].brand} <span class="text-muted">from</span> ${response.data.pendingBookings[i].pickupLocation} <span class="text-muted">to</span> ${response.data.pendingBookings[i].destination}</p></div><div id="${response.data.pendingBookings[i].id}"><button class="badge badge-success" onclick="changeBookingStatus(this)" value="Approve"><span class="fas fa-check"></span>&nbsp;Approve</button>&nbsp;<button class="badge badge-danger"  onclick="changeBookingStatus(this)" value="Decline"><span class="fas fa-times"></span>&nbsp;Decline</button></div></div></div>`)
+                    }
+                    for (let i = 0; i < response.data.bookings.length; i++) {
+                        $('#list-bookings #bookingTableBody').append(`<tr><th scope="row">${i}</th><td>${response.data.bookings[i].userId}</td><td>${response.data.bookings[i].cars[0].brand}</td><td>${response.data.bookings[i].driver.username}</td><td>${response.data.bookings[i].pickupLocation}</td><td>${response.data.bookings[i].destination}</td><td>${new Date(response.data.bookings[i].pickupTime[0], response.data.bookings[i].pickupTime[1], response.data.bookings[i].pickupTime[2], response.data.bookings[i].pickupTime[3], response.data.bookings[i].pickupTime[4]).toLocaleString()}</td><td>${new Date(response.data.bookings[i].destinationTime[0], response.data.bookings[i].destinationTime[1], response.data.bookings[i].destinationTime[2], response.data.bookings[i].destinationTime[3], response.data.bookings[i].destinationTime[4]).toLocaleString()}</td><td><span class="badge ${response.data.bookings[i].status === 'Approve' ? 'badge-success' : response.data.bookings[i].status === 'Pending' ? 'badge-info' : response.data.bookings[i].status === 'Completed' ? 'badge-success' : 'badge-danger'}">${response.data.bookings[i].status}</span></td></tr>`);
+                    }
+                    $("#bookingTable").tablesorter();
+                }
+            } else {
+                alert(response.message + ' - ' + response.data)
+            }
+        }
+    });
+    let users = '';
+    let userRequests = '';
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/admin/user',
+        method: 'get',
+        success: function (response) {
+            if (response.code === 200) {
+                if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                    alert(response.message + ' - ' + response.data);
+                    window.location.href = 'index.html';
+                }
+                $('#list-users #usersTotalUsers').text(response.data.totalUsers);
+                $('#list-users #usersTotalPendingUsers').text(response.data.totalPendingUsers);
+                $('#list-users #usersTotalAdminUsers').text(response.data.totalAdminUsers);
+                if (response.data.users != null) {
+                    users = response.data.users;
+                    for (let i = 0; i < response.data.users.length; i++) {
+                        $('#addBookingModal #addBookingUser').append(`<option value="${response.data.users[i].id}">${response.data.users[i].username}</option>`);
+                    }
+                    addUserTable(users);
+                }
+                if (response.data.userRequests != null) {
+                    userRequests = response.data.userRequests;
+                }
+            }
+        }
+    });
+
+    function changeBookingStatus(element) {
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/admin/booking/status',
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: element.parentElement.id,
+                status: element.value
+            }),
+            success: function (response) {
+                if (response.code === 200){
+                    if (response.data){
+                        alert('Status changed');
+                        element.parentElement.parentElement.parentElement.remove();
+                        $('#bookingRequestModal').on('hide.bs.modal', function () {
+                            window.location.reload();
+                        })
+                    }else{
+                        alert(response.message + ' - ' + response.data)
+                    }
+                }else{
+                    alert(response.message + ' - ' + response.data)
+                }
+            }
+        });
+    }
+
+    function addDriver() {
+        var username = $('#addDriverUsername').val().trim();
+        var email = $('#addDriverEmail').val().trim();
+        var contact = $('#addDriverContact').val().trim();
+        var nicNumber = $('#addDriverNicNumber').val().trim();
+        var drivingLicenseNumber = $('#addDriverDrivingLicenseNumber').val().trim();
+        var password = $('#addDriverPassword').val().trim();
+        var confirmPassword = $('#addDriverConfirmPassword').val().trim();
+        if (username.length < 6 || !isNaN(parseFloat(username))) {
+            $('#addDriverUsernameHelp').text('invalid username');
+        } else {
+            $('#addDriverUsernameHelp').text('');
+        }
+        if (email.length < 6 || !email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+            $('#addDriverEmailHelp').text('invalid email');
+        } else {
+            $('#addDriverEmailHelp').text('');
+        }
+        if (contact.length < 9) {
+            $('#addDriverContactHelp').text('invalid contact');
+        } else {
+            $('#addDriverContactHelp').text('');
+        }
+        if (nicNumber.length < 9) {
+            $('#addDriverNicNumberHelp').text('invalid NIC number');
+        } else {
+            $('#addDriverNicNumberHelp').text('');
+        }
+        if (drivingLicenseNumber.length < 9) {
+            $('#addDriverDrivingLicenseNumberHelp').text('invalid driving license number');
+        } else {
+            $('#addDriverDrivingLicenseNumberHelp').text('');
+        }
+        if (password.length < 6 || !isNaN(parseFloat(password))) {
+            $('#addDriverPasswordHelp').text('invalid password');
+        } else {
+            $('#addDriverPasswordHelp').text('');
+        }
+        if (confirmPassword.length < 6 || !isNaN(parseFloat(confirmPassword)) || confirmPassword !== password) {
+            $('#addDriverConfirmPasswordHelp').text('invalid confirm password');
+        } else {
+            $('#addDriverConfirmPasswordHelp').text('');
+        }
+        let bool = true;
+        $('#addDriverForm small').each(function () {
+            if ($(this).text() === '') {
+                bool = true;
+            } else {
+                bool = false;
+                return false;
+            }
+        });
+        if (bool) {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/driver/add',
+                method: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: username,
+                    email: email,
+                    contact: contact,
+                    nicNumber: nicNumber,
+                    drivingLicenseNumber: drivingLicenseNumber,
+                    password: password,
+                    status: 'available'
+                }),
+                success: function (response) {
+                    if (response.code === 200) {
+                        if (response.data) {
+                            alert('Driver added successfully');
+                            window.location.reload();
+                        }
+                    } else if (response.code === 400 || response.code === 403) {
+                        $('#registerAlert').css('display', 'block');
+                        $('#registerAlert').text(response.data);
+                    }
+                }
+            })
+        }
+    }
+
+    function deleteDriver(element) {
+        if ($('#' + element.parentElement.parentElement.id + ' .driverStatus').text() !== 'working' || $('#' + element.parentElement.parentElement.id + ' .driverStatus').text() !== 'Working') {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/driver/delete/' + element.parentElement.parentElement.id,
+                method: 'get',
+                success: function (response) {
+                    if (response.code === 200) {
+                        alert('Driver Deleted');
+                        window.location.reload();
+                    } else {
+                        alert(response.message + ' - ' + response.data);
+                    }
+                }
+            })
+        } else {
+            alert("Can't delete driver - driver is currently working");
+        }
+    }
+
+    function addNewCar() {
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/cars/add',
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                brand: $('#addCarBrand').val(),
+                type: $('#addCarType').val(),
+                frontImage: $('#addCarFrontImage').val(),
+                backImage: $('#addCarBackImage').val(),
+                slideImage: $('#addCarSlideImage').val(),
+                interiorImage: $('#addCarInteriorImage').val(),
+                passengers: parseFloat($('#addCarPassengers').val()),
+                transmission: $('#addCarTransmission').val(),
+                fuel: $('#addCarFuel').val(),
+                dailyRate: parseFloat($('#addCarDailyRate').val()),
+                monthlyRate: parseFloat($('#addCarMonthlyRate').val()),
+                freeMileage: parseFloat($('#addCarFreeMileage').val()),
+                priceExtraKm: parseFloat($('#addCarPriceExtraKm').val()),
+                registrationNumber: $('#addCarRegNo').val(),
+                color: $('#addCarColor').val(),
+                lossDamage: parseFloat($('#addCarLossDamage').val())
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    alert('Car Added');
+                    window.location.reload();
+                } else {
+                    alert(response.message + ' - ' + response.data);
+                }
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        })
+    }
+
+    function addBooking() {
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/booking/add',
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                userId: $('#addBookingUser').val(),
+                carId: $('#addBookingCar').val(),
+                pickupLocation: $('#addBookingPickupLocation').val(),
+                destination: $('#addBookingDestination').val(),
+                pickupTime: $('#addBookingPickupTime').val(),
+                destinationTime: $('#addBookingDestinationTime').val(),
+                passengers: $('#addBookingPassengers').val(),
+                needDriver: $('#addBookingDriver').is(':checked')
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    if (response.data) {
+                        alert('Order Placed');
+                        window.location.reload()
+                    } else {
+                        alert(response.message + ' - ' + response.data)
+                    }
+                } else {
+                    alert(response.message + ' - ' + response.data)
+                }
+            }
+        })
+    }
+
+    function registerUser() {
+        var username = $('#registerUsername').val().trim();
+        var email = $('#registerEmail').val().trim();
+        var contact = $('#registerContact').val().trim();
+        var address = $('#registerAddress').val().trim();
+        var nicNumber = $('#registerNicNumber').val().trim();
+        var nicPhoto = $('#registerNicPhoto').val();
+        var drivingLicenseNumber = $('#registerDrivingLicenseNumber').val().trim();
+        var drivingLicensePhoto = $('#registerDrivingLicensePhoto').val();
+        var password = $('#registerPassword').val().trim();
+        var confirmPassword = $('#registerConfirmPassword').val().trim();
+        if (username.length < 6 || !isNaN(parseFloat(username))) {
+            $('#registerUsernameHelp').text('invalid username');
+        } else {
+            $('#registerUsernameHelp').text('');
+        }
+        if (email.length < 6 || !email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+            $('#registerEmailHelp').text('invalid email');
+        } else {
+            $('#registerEmailHelp').text('');
+        }
+        if (contact.length < 9) {
+            $('#registerContactHelp').text('invalid contact');
+        } else {
+            $('#registerContactHelp').text('');
+        }
+        if (address.length < 5 || !isNaN(parseFloat(address))) {
+            $('#registerAddressHelp').text('invalid address');
+        } else {
+            $('#registerAddressHelp').text('');
+        }
+        if (nicNumber.length < 9) {
+            $('#registerNicNumberHelp').text('invalid NIC number');
+        } else {
+            $('#registerNicNumberHelp').text('');
+        }
+        if (drivingLicenseNumber.length < 9) {
+            $('#registerDrivingLicenseNumberHelp').text('invalid driving license number');
+        } else {
+            $('#registerDrivingLicenseNumberHelp').text('');
+        }
+        if (password.length < 6 || !isNaN(parseFloat(password))) {
+            $('#registerPasswordHelp').text('invalid password');
+        } else {
+            $('#registerPasswordHelp').text('');
+        }
+        if (confirmPassword.length < 6 || !isNaN(parseFloat(confirmPassword)) || confirmPassword !== password) {
+            $('#registerConfirmPasswordHelp').text('invalid confirm password');
+        } else {
+            $('#registerConfirmPasswordHelp').text('');
+        }
+        let bool = true;
+        $('#registerForm small').each(function () {
+            if ($(this).text() === '') {
+                bool = true;
+            } else {
+                bool = false;
+                return false;
+            }
+        });
+        if (bool) {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/register/user',
+                method: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: $('#registerUsername').val().trim(),
+                    email: $('#registerEmail').val().trim(),
+                    contact: $('#registerContact').val().trim(),
+                    address: $('#registerAddress').val().trim(),
+                    nicNumber: $('#registerNicNumber').val().trim(),
+                    nicPhoto: $('#registerNicPhoto').val(),
+                    drivingLicenseNumber: $('#registerDrivingLicenseNumber').val().trim(),
+                    drivingLicensePhoto: $('#registerDrivingLicensePhoto').val(),
+                    password: $('#registerPassword').val().trim(),
+                    status: $('#registerStatus').val().trim(),
+                    admin: $('#registerIsAdmin').val() === 'on'
+                }),
+                success: function (response) {
+                    if (response.code === 200) {
+                        if (response.data) {
+                            alert('User added successfully');
+                            window.location.reload();
+                        }
+                    } else if (response.code === 400 || response.code === 403) {
+                        $('#registerAlert').css('display', 'block');
+                        $('#registerAlert').text(response.data);
+                    }
+                }
+            })
+        }
+    }
+
+    let combo = '';
+    let userId = '';
+    let userStatus = '';
+    let userIsAdmin = true;
+
+    function addUserTable(data) {
+        $('.userTableBodyRow').off('click');
+        for (let i = 0; i < data.length; i++) {
+            $('#usersTableBody').append(`<tr id="${data[i].id}" class="userTableBodyRow"><th scope="row">${i + 1}</th><td>${data[i].username}</td><td>${data[i].email}</td><td>${data[i].nicNumber}</td><td>${data[i].drivingLicenseNumber}</td><td>${data[i].address}</td><td>${data[i].contact}</td><td><span class="badge ${data[i].admin ? 'badge-warning' : 'badge-success'}">${data[i].admin ? 'admin' : 'user'}</span><br><span class="badge ${data[i].status === 'rejected' ? 'badge-danger' : data[i].status === 'pending' ? 'badge-secondary' : 'badge-info'}">${data[i].status}</span></td><td><button class="btn btn-outline-danger ${data[i].admin ? 'disabled' : ''}" onclick="deleteUser(this)">Delete</button></td></tr>`);
+        }
+        $('.userTableBodyRow').on('click', function () {
+            let user = '';
+            if (combo === '' || combo.id === 'sortUser') {
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].id === $(this).attr('id')) {
+                        user = users[i];
+                        break;
+                    }
+                }
+            } else if (combo.id === 'sortUserRequests') {
+                for (var i = 0; i < userRequests.length; i++) {
+                    if (userRequests[i].id === $(this).attr('id')) {
+                        user = userRequests[i];
+                        break;
+                    }
+                }
+            }
+            let userModal = $('#userModal');
+            userModal.modal('show');
+            userModal.find('#userModalUsername').text(user.username);
+            userModal.find('#userModalEmail').text(user.email);
+            userModal.find('#userModalContact').text(user.contact);
+            userModal.find('#userModalAddress').text(user.address);
+            userModal.find('#userModalNicNumber').text(user.nicNumber);
+            userModal.find('#userModalDrivingNumber').text(user.drivingLicenseNumber);
+            userModal.find('#userModalIsAdmin').text(user.admin);
+            userModal.find('#userModalIsDriver').text(user.driver);
+            userModal.find('#userModalStatus').text(user.status);
+            userModal.find('#userModalMessage').text(user.message);
+            if (user.status === 'pending') {
+                $('#userBottom').css('display', 'block');
+                userId = user.id;
+                userStatus = user.status;
+                userIsAdmin = user.admin;
+            }else{
+                $('#userBottom').css('display', 'none');
+            }
+        });
+    }
+
+    function approvedUser() {
+        if (userStatus === 'pending') {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/admin/user/approved/' + userId,
+                method: 'post',
+                success: function (response) {
+                    if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                        alert(response.message + ' - ' + response.data);
+                        window.location.href = 'index.html';
+                    }
+                    if (response.code === 200) {
+                        if (response.data) {
+                            alert('User Approved');
+                            $('#userModalBtnApproved').css('display', 'none');
+                            $('#userModalBtnReject').css('display', 'none');
+                            $('#userModalRejectMessage').css('display', 'none');
+                            window.location.reload();
+                        } else {
+                            alert('Error! - ' + response.data);
+                        }
+                    } else {
+                        alert('Error! - ' + response.data);
+                    }
+                }
+            });
+        } else {
+            alert('User already ' + userStatus);
+        }
+    }
+
+    function rejectUser() {
+        if (userStatus === 'pending') {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/admin/user/reject/',
+                method: 'post',
+                data: {
+                    id: userId,
+                    message: $('#userModalRejectMessage').val().trim()
+                },
+                success: function (response) {
+                    if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                        alert(response.message + ' - ' + response.data);
+                        window.location.href = 'index.html';
+                    }
+                    if (response.code === 200) {
+                        if (response.data) {
+                            alert('User Rejected');
+                            $('#userModalBtnApproved').css('display', 'none');
+                            $('#userModalBtnReject').css('display', 'none');
+                            $('#userModalRejectMessage').css('display', 'none');
+                            window.location.reload();
+                        } else {
+                            alert('Error! - ' + response.data);
+                        }
+                    } else {
+                        alert('Error! - ' + response.data);
+                    }
+                }
+            });
+        } else {
+            alert('User already ' + userStatus);
+        }
+    }
+
+    function deleteUser(element) {
+        $('#userModal').modal('hide');
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/admin/user/delete/' + element.parentElement.parentElement.id,
+            method: 'post',
+            success: function (response) {
+                if (response.code === 401 || response.code === 403 || String(response.data).includes('Forbidden') || String(response.data).includes('Unauthorized')) {
+                    alert(response.message + ' - ' + response.data);
+                    window.location.href = 'index.html';
+                }
+                if (response.code === 200) {
+                    if (response.data) {
+                        window.location.reload();
+                    } else {
+                        alert('Error! - ' + response.data);
+                    }
+                } else {
+                    alert('Error! - ' + response.data);
+                }
+            }
+        });
+    }
+
+    function sortUsers(element) {
+        if (users !== '') {
+            if (element.checked) {
+                $('#usersTableBody').empty();
+                addUserTable(users);
+                combo = element;
+            }
+        }
+    }
+
+    function sortUserRequests(element) {
+        if (userRequests !== '') {
+            if (element.checked) {
+                $('#usersTableBody').empty();
+                addUserTable(userRequests);
+                combo = element;
+            }
+        }
+    }
+
+    function signOut() {
+        if (confirm('Do you want to sign out?')) {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/login/out',
+                method: 'get',
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

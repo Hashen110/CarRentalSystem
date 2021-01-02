@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Easy Car Rental</title>
+    <link href="assets/lib/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/lib/fontawesome-free-5.15.1-web/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/plugin/tablesorter-master/dist/css/theme.bootstrap_4.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-around"
+         style="background: black !important;">
+        <a class="navbar-brand" href="index.html">
+            <img alt="Easy Car Logo" src="assets/img/logo.png">
+        </a>
+        <div class="">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="cars.html">Cars</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link px-3" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item active" id="navAdmin">
+                    <a class="nav-link px-3 text-warning border" href="admin.html">Admin</a>
+                </li>
+                <li class="nav-item" id="navSignOut">
+                    <a class="nav-link px-3 text-danger" href="#" onclick="signOut()">Sign Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<section class="container-fluid my-5 px-5">
+    <div class="row">
+        <div class="col-3">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a aria-controls="booking" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-booking" id="list-booking-list" role="tab"
+                   style="display: none;">Bookings&nbsp;&nbsp;<span
+                        class="badge badge-warning badge-pill" id="pendingBookings">0</span></a>
+                <a aria-controls="schedule" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-schedule" id="list-schedule-list" role="tab" style="display: none;">Schedules&nbsp;&nbsp;<span
+                        class="badge badge-warning badge-pill" id="schedulePendingNumber">0</span></a>
+                <a aria-controls="profile" class="list-group-item list-group-item-action" data-toggle="list"
+                   href="#list-profile" id="list-profile-list" role="tab">Profile <span class="badge badge-danger" style="display: none;">0</span></a>
+            </div>
+        </div>
+        <div class="col border">
+            <div class="tab-content" id="nav-tabContent">
+                <div aria-labelledby="list-booking-list" class="tab-pane fade show py-5" id="list-booking"
+                     role="tabpanel">
+                    <div class="accordion" id="accordionBooking">
+                        <!--                        <div class="card"><div class="card-header" id="headingOne"><h2 class="mb-0"><button aria-controls="collapseOne" aria-expanded="true" class="btn btn-link btn-block text-left" data-target="#collapseOne" data-toggle="collapse" type="button">Booking - Panadura to Colombo at 10:00 am <span class="badge badge-warning badge-pill">pending</span></button></h2></div><div aria-labelledby="headingOne" class="collapse show" data-parent="#accordionBooking" id="collapseOne"><div class="card-body"><div class="row"><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-car"></span>&nbsp;<span class="font-weight-bold">Car&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>BMW i8</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-users"></span>&nbsp;<span class="font-weight-bold">Passengers&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>5</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-location-arrow"></span>&nbsp;<span class="font-weight-bold">From&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>Panadura</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-search-location"></span>&nbsp;<span class="font-weight-bold">To&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>Colombo</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-calendar"></span>&nbsp;<span class="font-weight-bold">Date&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>2020/10/20</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-clock"></span>&nbsp;<span class="font-weight-bold">Time&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>10:10 am</span></p></div><div class="col-12"><p><span class="fas fa-user"></span>&nbsp;<span class="font-weight-bold">Driver&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>Saman Perera</span></p></div></div></div></div></div>-->
+                    </div>
+                </div>
+                <div aria-labelledby="list-schedule-list" class="tab-pane fade show py-5" id="list-schedule"
+                     role="tabpanel">
+                    <p class="h4 text-center mb-5">Ongoing Schedule</p>
+                    <table class="table table-hover text-center tablesorter" id="tableSchedule">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Car</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Rent</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableScheduleBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div aria-labelledby="list-profile-list" class="tab-pane fade show p-5" id="list-profile"
+                     role="tabpanel">
+                    <div class="text-center h5">Your user request is <span id="userStatus" class="badge"></span></div>
+                    <div class="text-center mb-5 text-danger" id="userMessage"></div>
+                    <hr>
+                    <form action="">
+                        <div class="alert" id="profileAlert" style="display: none;"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="profileUsername">Username</label>
+                            <div class="col-sm-6">
+                                <input aria-describedby="profileUsernameHelp" class="form-control rounded-0"
+                                       id="profileUsername" placeholder="Username" type="text">
+                                <small class="form-text text-danger" id="profileUsernameHelp"></small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="profileEmail">Email</label>
+                            <div class="col-sm-6">
+                                <input aria-describedby="profileEmailHelp" class="form-control rounded-0"
+                                       id="profileEmail" placeholder="Email" type="email">
+                                <small class="form-text text-danger" id="profileEmailHelp"></small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="profileContact">Contact</label>
+                            <div class="col-sm-6">
+                                <input aria-describedby="profileContactHelp" class="form-control rounded-0"
+                                       id="profileContact" placeholder="Contact" type="number">
+                                <small class="form-text text-danger" id="profileContactHelp"></small>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="addressRow">
+                            <label class="col-sm-2 col-form-label" for="profileAddress">Address</label>
+                            <div class="col-sm-6">
+                                <input aria-describedby="profileAddressHelp" class="form-control rounded-0"
+                                       id="profileAddress" placeholder="Address" type="text">
+                                <small class="form-text text-danger" id="profileAddressHelp"></small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="profilePassword">Password</label>
+                            <div class="col-sm-6">
+                                <input aria-describedby="profilePasswordHelp" class="form-control rounded-0"
+                                       id="profilePassword" placeholder="password"
+                                       type="password">
+                                <small class="form-text text-danger" id="profilePasswordHelp"></small>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <input class="btn btn-warning px-5 mt-4" id="profileUpdateBtn" type="button"
+                                   value="Save Changes">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div aria-hidden="true" aria-labelledby="finishModalTitle" class="modal fade" id="finishModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finishModalTitle">Finish Rent</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="finishDistance">Distance <small class="text-muted">(km)</small></label>
+                                <input type="number" required id="finishDistance" class="form-control rounded-0" placeholder="Distance">
+                            </div>
+                            <div class="form-group">
+                                <label for="finishDamage">Damage <small class="text-muted">(rs)</small></label>
+                                <input type="number" required id="finishDamage" class="form-control rounded-0" placeholder="Damage">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-warning" id="finishButton" type="button">Finish Rent</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/lib/jquery-3.5.1.min.js"></script>
+<script src="assets/lib/popper.min.js"></script>
+<script src="assets/lib/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+<script src="assets/plugin/tablesorter-master/dist/js/jquery.tablesorter.min.js"></script>
+<script src="assets/plugin/tablesorter-master/dist/js/jquery.tablesorter.widgets.min.js"></script>
+<script>
+    let id = '';
+    let isDriver = false;
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/login/user',
+        method: 'get',
+        success: function (response) {
+            if (response.code === 200) {
+                if (response.data === null) {
+                    window.location.replace('index.html');
+                } else {
+                    $('#userStatus').text(response.data.status);
+                    if (response.data.status === 'rejected') $('#userStatus').addClass('badge-danger');
+                    if (response.data.status === 'approved') $('#userStatus').addClass('badge-primary');
+                    if (response.data.status === 'pending') $('#userStatus').addClass('badge-info');
+                    if (response.data.message != null) $('#userMessage').text(response.data.message);
+                    id = response.data.id;
+                    if (response.data.driver) isDriver = true;
+                    if (response.data.admin) {
+                        $('#navAdmin').css('display', 'block');
+                    } else {
+                        $('#navAdmin').css('display', 'none');
+                    }
+                    if (response.data.driver) {
+                        $('#list-schedule-list').css('display', 'block');
+                        $('#list-booking-list').css('display', 'none');
+                        $('#list-profile form #addressRow').css('display', 'none');
+                    } else {
+                        $('#list-schedule-list').css('display', 'none');
+                        $('#list-booking-list').css('display', 'block');
+                        $('#list-profile form #addressRow').css('display', 'flex');
+                        $('#list-profile form #profileAddress').val(response.data.address);
+                    }
+                    $('#list-profile form #profileUsername').val(response.data.username);
+                    $('#list-profile form #profileEmail').val(response.data.email);
+                    $('#list-profile form #profileContact').val(response.data.contact);
+                    if (!response.data.driver) {
+                        $.ajax({
+                            url: 'http://localhost:8080/carrental/api/v1/booking/user/' + id,
+                            method: 'get',
+                            success: function (res) {
+                                if (res.code === 200) {
+                                    if (res.data != null) {
+                                        var pending = 0;
+                                        for (let i = 0; i < res.data.length; i++) {
+                                            if (res.data[i].status === 'Pending') pending++;
+                                            let priceRow = '';
+                                            if (res.data[i].status === 'Completed'){
+                                                if (res.data[i].returnEntity != null){
+                                                    var amount = Number(res.data[i].returnEntity.distance) * Number(res.data[i].cars[0].dailyRate);
+                                                    priceRow = `<hr class="bg-success"><p class="text-center"><u>Rent Finished</u></p><div class="row"><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-map"></span>&nbsp;<span class="font-weight-bold">Distance&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>${res.data[i].returnEntity.distance}.00 km<span></span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-house-damage"></span>&nbsp;<span class="font-weight-bold">Damage&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>Rs ${res.data[i].returnEntity.damage}.00<span></span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-money-bill"></span>&nbsp;<span class="font-weight-bold">Amount&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span class="text-primary font-weight-bold">Rs ${amount}.00</span><span></span></p></div></div>`;
+                                                }
+                                            }
+                                            $('#list-booking #accordionBooking').append(`<div class="card"><div class="card-header" id="heading-${i}"><h2 class="mb-0"><button aria-controls="collapse-${i}" aria-expanded="false" class="btn btn-link btn-block text-left" data-target="#collapse-${i}" data-toggle="collapse" type="button">Booking - ${res.data[i].pickupLocation} to ${res.data[i].destination} at ${new Date(res.data[i].timestamp[0], res.data[i].timestamp[1], res.data[i].timestamp[2], res.data[i].timestamp[3], res.data[i].timestamp[4], res.data[i].timestamp[5]).toLocaleString()} <span class="badge ${res.data[i].status === 'Pending' ? 'badge-warning' : res.data[i].status === 'Decline' ? 'badge-danger' : 'badge-success'} badge-pill">${res.data[i].status}</span></button></h2></div><div aria-labelledby="heading-${i}" class="collapse show" data-parent="#accordionBooking" id="collapse-${i}"><div class="card-body"><div class="row ${res.data[i].status === 'Decline' ? 'text-danger' : ''}"><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-car"></span>&nbsp;<span class="font-weight-bold">Car&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${res.data[i].cars[0].brand}</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-users"></span>&nbsp;<span class="font-weight-bold">Passengers&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${res.data[i].passengers}</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-location-arrow"></span>&nbsp;<span class="font-weight-bold">From&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${res.data[i].pickupLocation}</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-search-location"></span>&nbsp;<span class="font-weight-bold">To&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${res.data[i].destination}</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-calendar"></span>&nbsp;<span class="font-weight-bold">Date&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${new Date(res.data[i].timestamp[0], res.data[i].timestamp[1], res.data[i].timestamp[2], res.data[i].timestamp[3], res.data[i].timestamp[4], res.data[i].timestamp[5]).toLocaleDateString()}</span></p></div><div class="col-12 col-sm-6 col-md-4"><p><span class="fas fa-clock"></span>&nbsp;<span class="font-weight-bold">Time&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${new Date(res.data[i].timestamp[0], res.data[i].timestamp[1], res.data[i].timestamp[2], res.data[i].timestamp[3], res.data[i].timestamp[4], res.data[i].timestamp[5]).toLocaleTimeString()}</span></p></div><div class="col-12"><p><span class="fas fa-user"></span>&nbsp;<span class="font-weight-bold">Driver&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><span>${res.data[i].driver === null ? 'No Driver' : (res.data[i].driver.username + ' : ' + res.data[i].driver.contact)}</span></p></div></div>${priceRow}</div></div></div>`)
+                                        }
+                                        $('#list-booking-list #pendingBookings').text(pending);
+                                    }
+                                } else {
+                                    alert(res.message + '-' + res.data)
+                                }
+                                console.log(res.data);
+                            },
+                            error: function (a, b, c) {
+                                console.log(a);
+                                console.log(b);
+                                console.log(c);
+                            }
+                        });
+                    }
+                    if (response.data.driver) {
+                        $.ajax({
+                            url: 'http://localhost:8080/carrental/api/v1/driver/schedule/' + id,
+                            method: 'get',
+                            success: function (res) {
+                                if (res.code === 200) {
+                                    if (res.data != null) {
+                                        let pending = 0;
+                                        for (let i = 0; i < res.data.length; i++) {
+                                            if (res.data[i].status === 'Pending' || res.data[i].status === 'Pending') pending++;
+                                            $('#list-schedule #tableScheduleBody').append(`<tr id="${res.data[i].id}"><th scope="row">${i+1}</th><td>${res.data[i].customer}</td><td>${res.data[i].car}</td><td>${res.data[i].pickupLocation} to ${res.data[i].destination}</td><td>${new Date(res.data[i].pickupTime[0],res.data[i].pickupTime[1],res.data[i].pickupTime[2],res.data[i].pickupTime[3],res.data[i].pickupTime[4]).toLocaleDateString()}</td><td>${new Date(res.data[i].pickupTime[0],res.data[i].pickupTime[1],res.data[i].pickupTime[2],res.data[i].pickupTime[3],res.data[i].pickupTime[4]).toLocaleTimeString()}</td><td><span class="badge ${res.data[i].status === 'Pending' ? 'badge-info' : 'badge-success'}">${res.data[i].status}</span></td>${res.data[i].status === 'Approve' ? '<td><a class="badge badge-warning" href="#finishModal" data-toggle="modal">Finish</a></td>' : '<td></td>'}</tr>`);
+                                        }
+                                        $('#tableSchedule').tablesorter();
+                                        $('#list-schedule-list #schedulePendingNumber').text(pending);
+                                    }
+                                } else {
+                                    alert(res.message + '-' + res.data)
+                                }
+                            },
+                            error: function (a, b, c) {
+                                console.log(a);
+                                console.log(b);
+                                console.log(c);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    });
+
+    $('#finishModal').on('shown.bs.modal', function (e){
+       $('#finishButton').on('click', function () {
+           console.log($(e.relatedTarget).parent().parent().attr('id'));
+           $.ajax({
+               url: 'http://localhost:8080/carrental/api/v1/booking/finish',
+               method: 'post',
+               contentType: 'application/json',
+               data: JSON.stringify({
+                   bookingId: $(e.relatedTarget).parent().parent().attr('id'),
+                   distance: parseInt($('#finishDistance').val()),
+                   damage: parseInt($('#finishDamage').val())
+               }),
+               success: function (response) {
+                   console.log(response);
+                   if (response.code === 200){
+                       if (response.data){
+                           window.location.reload();
+                       }else{
+                           alert(response.message + ' - ' + response.data)
+                       }
+                   }else{
+                       alert(response.message + ' - ' + response.data)
+                   }
+               }
+           });
+       })
+    });
+
+    $('#profileUpdateBtn').on('click', function () {
+        var username = $('#profileUsername').val().trim();
+        var email = $('#profileEmail').val().trim();
+        var contact = $('#profileContact').val().trim();
+        var address = $('#profileAddress').val().trim();
+        var password = $('#profilePassword').val().trim();
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/profile/user/update',
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: id,
+                username: username,
+                email: email,
+                contact: contact,
+                address: address,
+                password: password
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    $('#profileAlert').css('display', 'block');
+                    $('#profileAlert').text('Profile Updated Successfully');
+                    $('#profileAlert').removeClass('alert-danger');
+                    $('#profileAlert').addClass('alert-success');
+                    $('#list-profile form #profileUsername').val(response.data.username);
+                    $('#list-profile form #profileEmail').val(response.data.email);
+                    $('#list-profile form #profileContact').val(response.data.contact);
+                    $('#list-profile form #profileAddress').val(response.data.address);
+                } else {
+                    $('#profileAlert').css('display', 'block');
+                    $('#profileAlert').text('Error! ' + response.data);
+                    $('#profileAlert').removeClass('alert-success');
+                    $('#profileAlert').addClass('alert-danger');
+                }
+            }
+        })
+    });
+
+    function finishBooking(element) {
+        console.log(element.parentElement.parentElement.id)
+    }
+
+    function signOut() {
+        if (confirm('Do you want to sign out?')) {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/login/out',
+                method: 'get',
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Easy Car Rental</title>
+    <link href="assets/lib/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/lib/fontawesome-free-5.15.1-web/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<section class="section-1">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-around"
+             style="background: black !important;">
+            <a class="navbar-brand" href="index.html">
+                <img alt="Easy Car Logo" src="assets/img/logo.png">
+            </a>
+            <div class="">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link px-3" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="cars.html">Cars</a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link px-3" data-toggle="modal" href="#loginModal">Login</a>
+                    </li>
+                    <li class="nav-item" id="navRegister">
+                        <a class="nav-link px-3 text-warning" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item" id="navProfile" style="display: none;">
+                        <a class="nav-link px-3 text-warning" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="navSignOut" style="display: none;">
+                        <a class="nav-link px-3 text-danger" href="#" onclick="signOut()">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <section class="header-after">
+        <div class="d-flex justify-content-around align-items-center">
+            <div class="text-white p-5">
+                <h6>THE ROYAL ESSENCE OF JOURNEY</h6>
+                <h1>Relaxed Journey Ever</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <button class="btn btn-warning rounded-0" onclick="window.location.href = 'cars.html'">RENT CAR NOW</button>
+            </div>
+            <div>
+                <div class="text-white p-5 header-box" id="loginBox">
+                    <p class="h5 font-weight-bold mb-4">Login!</p>
+                    <form action="">
+                        <div class="form-group">
+                            <input class="form-control rounded-0" id="headerUsername" placeholder="Username"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control rounded-0" id="headerPassword" placeholder="Password"
+                                   type="password">
+                        </div>
+                        <button class="btn btn-warning" onclick="headerLogin()">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<section class="container-fluid">
+    <div class="m-5 p-5">
+        <h2 class="font-weight-bold text-center">What Services we offer to our clients</h2>
+        <p class="text-center text-secondary">Who are in extremely love with eco friendly system.</p>
+        <div class="row service-row p-5">
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;Expert
+                        Technicians</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-newspaper"></span>&nbsp;&nbsp;&nbsp;&nbsp;Professional
+                        Service</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-phone"></span>&nbsp;&nbsp;&nbsp;&nbsp;Great
+                        Support</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-rocket"></span>&nbsp;&nbsp;&nbsp;&nbsp;Technical
+                        Skills</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-gem"></span>&nbsp;&nbsp;&nbsp;&nbsp;Highly
+                        Recommended</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="p-5">
+                    <p class="h5 font-weight-bold hover-yellow mb-4"><span class="fa fa-cloud"></span>&nbsp;&nbsp;&nbsp;&nbsp;Positive
+                        Reviews</p>
+                    <p class="text-secondary">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid">
+    <div class="row" style="background: #fab700">
+        <div class="col-12 col-sm-6 col-md-3 p-5 text-center">
+            <p class="h1 font-weight-bold" id="noOfCars">0</p>
+            <p class="h6">Total Cars</p>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 p-5 text-center">
+            <p class="h1 font-weight-bold" id="noOfDrivers">0</p>
+            <p class="h6">Total Drivers</p>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 p-5 text-center">
+            <p class="h1 font-weight-bold" id="noOfBookings">0</p>
+            <p class="h6">Total Bookings</p>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 p-5 text-center">
+            <p class="h1 font-weight-bold" id="noOfCustomers">0</p>
+            <p class="h6">Happy Customers</p>
+        </div>
+    </div>
+</section>
+<div aria-hidden="true" aria-labelledby="loginModalTitle" class="modal fade" id="loginModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalTitle">Modal title</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="alert alert-danger" id="loginAlert" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="loginUsername">Username</label>
+                        <input aria-describedby="loginUsernameHelp" class="form-control rounded-0" id="loginUsername"
+                               placeholder="Enter email" required type="text">
+                        <small class="form-text text-danger" id="loginUsernameHelp"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input aria-describedby="loginPasswordHelp" class="form-control rounded-0" id="loginPassword"
+                               placeholder="Password" required
+                               type="password">
+                        <small class="form-text text-danger" id="loginPasswordHelp"></small>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="loginIsDriver" type="checkbox">
+                        <label class="form-check-label" for="loginIsDriver">Is Driver?</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-warning" id="loginButton" type="button">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/lib/jquery-3.5.1.min.js"></script>
+<script src="assets/lib/popper.min.js"></script>
+<script src="assets/lib/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+<script>
+    $.ajax({
+        url: 'http://localhost:8080/carrental/api/v1/home',
+        method: 'get',
+        success: function (response) {
+            if (response.code === 200) {
+                if (response.data.loggedUser !== null) {
+                    $('#loginBox').css('display', 'none');
+                    $('#navLogin').css('display', 'none');
+                    $('#navRegister').css('display', 'none');
+                    $('#navProfile').css('display', 'block');
+                    $('#navSignOut').css('display', 'block');
+                } else {
+                    $('#loginBox').css('display', 'block');
+                    $('#navLogin').css('display', 'block');
+                    $('#navRegister').css('display', 'block');
+                    $('#navProfile').css('display', 'none');
+                    $('#navSignOut').css('display', 'none');
+                }
+                $('#noOfCars').text(response.data.cars);
+                $('#noOfDrivers').text(response.data.drivers);
+                $('#noOfBookings').text(response.data.bookings);
+                $('#noOfCustomers').text(response.data.users);
+            }
+        }
+    });
+    $('#loginModal').on('show.bs.modal', function () {
+        let mdl = $(this);
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/login',
+            method: 'get',
+            success: function (response) {
+                if (response.code !== 200) {
+                    console.log(mdl, response);
+                    $('#loginModal').modal('hide');
+                }
+            }
+        });
+        $('#loginButton').on('click', function () {
+            var username = $('#loginUsername').val().trim();
+            var password = $('#loginPassword').val().trim();
+            if (username.length < 6 || !isNaN(parseFloat(username))) {
+                $('#loginUsernameHelp').text('invalid username');
+            } else {
+                $('#loginUsernameHelp').text('');
+            }
+            if (password.length < 6 || !isNaN(parseFloat(password))) {
+                $('#loginPasswordHelp').text('invalid password');
+            } else {
+                $('#loginPasswordHelp').text('');
+            }
+            if ($('#loginUsernameHelp').text() === '' && $('#loginPasswordHelp').text() === '') {
+                $.ajax({
+                    url: 'http://localhost:8080/carrental/api/v1/login',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        username: username,
+                        password: password,
+                        driver: $('#loginIsDriver').is(':checked')
+                    }),
+                    success: function (response) {
+                        console.log(response);
+                        if (response.code === 400) {
+                            $('#loginAlert').css('display', 'block');
+                            $('#loginAlert').text(response.data);
+                        } else if (response.code === 200) {
+                            window.location.reload();
+                        }
+                    }
+                })
+            }
+        });
+    });
+
+    function headerLogin() {
+        var username = $('#headerUsername').val().trim();
+        var password = $('#headerPassword').val().trim();
+        if (username.length < 6 || !isNaN(parseFloat(username))) {
+            alert('Invalid Username');
+            return false;
+        }
+        if (password.length < 6 || !isNaN(parseFloat(password))) {
+            alert('Invalid Password');
+            return false;
+        }
+        $.ajax({
+            url: 'http://localhost:8080/carrental/api/v1/login',
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                username: username,
+                password: password
+            }),
+            success: function (response) {
+                console.log(response);
+                if (response.code === 400) {
+                    alert(response.message + ' - ' + response.data)
+                } else if (response.code === 200) {
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+    function signOut() {
+        if (confirm('Do you want to sign out?')) {
+            $.ajax({
+                url: 'http://localhost:8080/carrental/api/v1/login/out',
+                method: 'get',
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>
